@@ -136,6 +136,8 @@ done
 
 if [[ $beast -le 0 ]]; then
     echo "Beast VANQUISHED! Congrats, fellow tarnished!"
+    sleep 0.8
+    echo "You have $hp left."
 elif [[ $hp -le 0 ]]; then
     echo "You Died"
     exit 2
