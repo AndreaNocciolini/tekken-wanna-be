@@ -3,7 +3,7 @@ echo ". . ."
 sleep 0.5
 
 echo "Welcome, tarnished. You seem to have the potential to face the challenges that will arise before you, but it seems that you haven't chosen your path yet. Choose your class, and get ready to start you're journey:"
-sleep 0.8
+sleep 2
 
 echo "
 0 - Wretch
@@ -102,55 +102,46 @@ echo ". . ."
 sleep 0.5
 
 echo "You wake up from a deep sleep. It seems like centuries since you last opened your eyes."
-sleep 1
+sleep 1.2
 
-echo "You gather your strength for a few minutes before setting off on your journey"
-sleep 1
+echo "You gather your strength for a few minutes before setting off on your journey."
+sleep 1.2
 
 #First Beast Battle How I would like to do but frickin' bash doesn't enter in the until :(
 
-# echo "Your first beast approaches. Prepare to battle. Pick a number between 0 and 1. (0/1)"
+echo "Your first enemy approaches. It's a feral beast. Prepare to battle."
 
-# beast=45
+beast=45
 
-# read tarnished
 
-# until [ $beast -gt 0 ] || [ $hp -le 0 ]
-# do
-#     swing=$(( $RANDOM % 2 ))
+until [[ $beast -le 1 && $hp -gt 1 || $beast -gt 1 && $hp -le 1 ]]
+do
+echo "Pick a number between 0 and 1 to attack. (0/1)"
 
-#     if [[ $swing == $tarnished ]]; then
-#         echo "You tear the flesh of the beast with a slash! Blood begins to gush from the wound!"
-#         beast=[[$beast-$attack]]
-#         echo "$beast"
-#     else
-#         echo "You try to dodge, but the beast manages to hit you! You feel the blow and back away, ready to attack again!"
-#         hp=[[ $hp-3 ]]
-#         echo "$hp"
-#     fi
-# done
+    swing=$(( $RANDOM % 2 ))
 
-# if [[ $beast -le 0 ]]; then
-#     echo "Beast VANQUISHED! Congrats, fellow tarnished!"
-# elif [[ $hp -le 0 ]]; then
-#     echo "You Died"
-#     exit 1
-# fi
+        
+    read tarnished
 
-#First Beast Battle
-echo "Your first beast approaches. Prepare to battle. Pick a number between 0 and 1. (0/1)"
+    if [[ $swing == $tarnished ]]; then
+        echo "You tear the flesh of the beast with a slash! Blood begins to gush from the wound!"
+        beast=$(( beast -= $attack ))
+        echo "$beast"
+    else
+        echo "You try to dodge, but the beast manages to hit you! You feel the blow and back away, ready to attack again!"
+        hp=$((hp -= 3 ))
+        echo "$hp"
+    fi
+done
 
-beast=$(( $RANDOM % 2 ))
-
-read tarnished
-
-if [[ $beast == $tarnished ]]; then
+if [[ $beast -le 0 ]]; then
     echo "Beast VANQUISHED! Congrats, fellow tarnished!"
-else
+elif [[ $hp -le 0 ]]; then
     echo "You Died"
-    exit 1
+    exit 2
 fi
-sleep 2
+
+sleep 1.2
 
 echo "You see a castle in the distance. Your heart tightens for a moment. But you know your journey have to take you there."
 sleep 1
@@ -166,5 +157,5 @@ if [[ $margit == $tarnished ]]; then
     echo "After a grueling battle, Margit falls to the ground defeated, sinking into a pool soaked in his own blood. Congrats, fellow tarnished!"
 else
     echo "You Died"
-    exit 1
+    exit 2
 fi
